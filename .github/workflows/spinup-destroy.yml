@@ -8,7 +8,7 @@ env:
   IMAGE_REGISTRY_URL: ghcr.io
   AZURE_RESOURCE_GROUP: cd-with-actions
   AZURE_APP_PLAN: actions-ttt-deployment
-  AZURE_LOCATION: '"WEST US"'
+  AZURE_LOCATION: '"WEST US 2"'
   AZURE_WEBAPP_NAME: olayinka17-ttt-app
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
       - name: Create Azure app service plan
         if: success()
         run: |
-          az appservice plan create --location ${{ env.AZURE_LOCATION }} --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.AZURE_APP_PLAN }} --is-linux --sku F1 --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          az appservice plan create --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --name ${{ env.AZURE_APP_PLAN }} --is-linux --sku F1 --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Create webapp resource
         if: success()
@@ -60,4 +60,6 @@ jobs:
         if: success()
         run: |
           az group delete --name ${{ env.AZURE_RESOURCE_GROUP }} --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} --yes
+
+
 
